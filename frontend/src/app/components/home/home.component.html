@@ -1,0 +1,21 @@
+<ng-container *ngIf="!user">
+  <p-card header="Testing Google Sign In!" subheader="Not signed in">
+    <p-footer>
+      <p-button icon="pi pi-google" label="Sign in with Google " (onClick)="signInWithGoogle()"></p-button>
+    </p-footer>
+  </p-card>
+</ng-container>
+
+<ng-container *ngIf="user" class="card text-center">
+  <p-card header="Testing Google Sign In!" subheader="Now you are logged">
+    <div>
+      <h4 class="card-title">Name: {{ user.name }}</h4>
+      <h4 class="card-title">ID Token: {{ user.idToken }}</h4>
+      <h4 class="card-title">Authorization code: {{ user.authorizationCode }}</h4>
+      <h4 class="card-text">Auth Token: {{ user.authToken }}</h4>
+    </div>
+    <p-footer>
+      <p-button icon="pi pi-google" label="Sign Out" (onClick)="signOut()"></p-button>
+    </p-footer>
+  </p-card>
+</ng-container>
