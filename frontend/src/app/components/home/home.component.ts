@@ -1,3 +1,4 @@
+import { User } from './../../models/user.model';
 import { UserService } from './../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService, SocialUser } from 'angularx-social-login';
@@ -11,12 +12,15 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 })
 export class HomeComponent implements OnInit {
 
-  user: SocialUser;
+  userCredentials: SocialUser;
   loggedIn: boolean;
+
+  userList: User[];
 
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
-      this.user = user;
+      this.userCredentials = user;
+      console.log(user);
       this.loggedIn = (user != null);
     });
   }
@@ -31,9 +35,33 @@ export class HomeComponent implements OnInit {
     this.authService.signOut();
   }
 
-  getUsersList() {
+  getUsers() {
     return this.userService.getUsers().subscribe(users => {
-      console.log(users);
+      this.userList = users;
+    });
+  }
+
+  getUser(id: number) {
+    return this.userService.getUser(id).subscribe((user: User) => {
+
+    });
+  }
+
+  createUser(user: User) {
+    return this.userService.createUser(user).subscribe(() => {
+      this.getUsers();
+    });
+  }
+
+  updateUser(user: User) {
+    return this.userService.updateUser(user).subscribe(() => {
+      this.getUsers();
+    });
+  }
+
+  deleteUser(user: User) {
+    return this.userService.updateUser(user).subscribe(() => {
+      this.getUsers();
     });
   }
 

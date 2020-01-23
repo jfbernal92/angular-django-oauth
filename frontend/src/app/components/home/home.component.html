@@ -1,4 +1,4 @@
-<ng-container *ngIf="!user">
+<ng-container *ngIf="!userCredentials">
   <p-card header="Testing Google Sign In!" subheader="Not signed in">
     <p-footer>
       <p-button icon="pi pi-google" label="Sign in with Google " (onClick)="signInWithGoogle()"></p-button>
@@ -6,6 +6,8 @@
   </p-card>
 </ng-container>
 
-<ng-container *ngIf="user" class="card text-center">
-  <p-button icon="" label="Get user list " (onClick)="getUsersList()"></p-button>
+<ng-container *ngIf="userCredentials" class="card text-center">
+  <p-button icon="" label="Get user list " (onClick)="getUsers()"></p-button>
+
+  <p-button icon="" label="Get 1 user " (onClick)="getUser(1)"></p-button>
 </ng-container>
