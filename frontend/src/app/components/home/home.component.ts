@@ -3,6 +3,7 @@ import { UserService } from './../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService, SocialUser } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
+import { ColumnHeader } from 'src/app/interfaces/columnHeader.interface';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ export class HomeComponent implements OnInit {
   loggedIn: boolean;
 
   userList: User[];
+  columnHeaders: ColumnHeader[];
 
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
@@ -23,6 +25,12 @@ export class HomeComponent implements OnInit {
       console.log(user);
       this.loggedIn = (user != null);
     });
+
+    this.columnHeaders = [
+      { field: 'first_name', header: 'First Name' },
+      { field: 'last_name', header: 'Last Name' },
+      { field: 'iban', header: 'IBAN' }
+    ];
   }
 
   constructor(private authService: AuthService, private userService: UserService) { }

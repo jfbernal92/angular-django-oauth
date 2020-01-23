@@ -9,10 +9,11 @@ import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { HomeComponent } from './components/home/home.component';
 import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { httpInterceptorProviders } from './services/auth/auth-interceptor.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import {DropdownModule} from 'primeng/dropdown';
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -30,8 +31,10 @@ const config = new AuthServiceConfig([
     AppRoutingModule,
     ButtonModule,
     CardModule,
+    DropdownModule,
     HttpClientModule,
-    SocialLoginModule
+    SocialLoginModule,
+    TableModule
   ],
   providers: [
     httpInterceptorProviders,

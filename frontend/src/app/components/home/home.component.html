@@ -9,5 +9,20 @@
 <ng-container *ngIf="userCredentials" class="card text-center">
   <p-button icon="" label="Get user list " (onClick)="getUsers()"></p-button>
 
-  <p-button icon="" label="Get 1 user " (onClick)="getUser(1)"></p-button>
+  <p-table [columns]="columnHeaders" [value]="userList" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
 </ng-container>
