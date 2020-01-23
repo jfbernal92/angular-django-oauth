@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService, SocialUser } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
@@ -5,7 +6,8 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  providers: [UserService]
 })
 export class HomeComponent implements OnInit {
 
@@ -19,7 +21,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private userService: UserService) { }
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
@@ -27,6 +29,12 @@ export class HomeComponent implements OnInit {
 
   signOut(): void {
     this.authService.signOut();
+  }
+
+  getUsersList() {
+    return this.userService.getUsers().subscribe(users => {
+      console.log(users);
+    });
   }
 
 }
