@@ -13,7 +13,11 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { httpInterceptorProviders } from './services/auth/auth-interceptor.service';
 import { HttpClientModule } from '@angular/common/http';
-import {DropdownModule} from 'primeng/dropdown';
+import { DropdownModule } from 'primeng/dropdown';
+import { AngularIbanModule } from 'angular-iban';
+
+import { FormsModule } from '@angular/forms';
+
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -27,11 +31,13 @@ const config = new AuthServiceConfig([
     HomeComponent,
   ],
   imports: [
-    BrowserModule,
+    AngularIbanModule,
     AppRoutingModule,
+    BrowserModule,
     ButtonModule,
     CardModule,
     DropdownModule,
+    FormsModule,
     HttpClientModule,
     SocialLoginModule,
     TableModule

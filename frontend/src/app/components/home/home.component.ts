@@ -17,6 +17,9 @@ export class HomeComponent implements OnInit {
   loggedIn: boolean;
 
   userList: User[];
+  clonedUserList: { [id: number]: User; } = {};
+  user = new User();
+
   columnHeaders: ColumnHeader[];
 
   ngOnInit(): void {
@@ -68,9 +71,28 @@ export class HomeComponent implements OnInit {
   }
 
   deleteUser(user: User) {
-    return this.userService.updateUser(user).subscribe(() => {
+    return this.userService.deleteUser(user).subscribe(() => {
       this.getUsers();
     });
+  }
+
+  onRowEditInit(user: User) {
+    this.clonedUserList[user.id] = { ...user };
+  }
+
+  onRowEditSave(user: User) {
+      delete this.clonedUserList[user.id];
+      this.updateUser(user);
+  }
+
+  onRowEditCancel(user: User, index: number) {
+    this.userList[index] = this.clonedUserList[user.id];
+    delete this.clonedUserList[user.id];
+  }
+
+  onRowDelete(user: User) {
+    delete this.clonedUserList[user.id];
+    this.deleteUser(user);
   }
 
 }

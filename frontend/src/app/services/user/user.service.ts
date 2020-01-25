@@ -24,14 +24,14 @@ export class UserService {
   }
 
   createUser(user: User): Observable<User> {
-    return this.http.post<User>(`${environment.host}${RestRoutes.USERS}`, httpOptions);
+    return this.http.post<User>(`${environment.host}${RestRoutes.USERS}`, user, httpOptions);
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`${environment.host}${RestRoutes.USERS}/${user.id}`, httpOptions);
+    return this.http.put<User>(`${environment.host}${RestRoutes.USERS}/${user.id}`,  user, httpOptions);
   }
 
-  deleteUser(id: number): Observable<HttpResponse<any>> {
-    return this.http.delete<HttpResponse<any>>(`${environment.host}${RestRoutes.USERS}/${id}`, httpOptions);
+  deleteUser(user: User): Observable<HttpResponse<any>> {
+    return this.http.delete<HttpResponse<any>>(`${environment.host}${RestRoutes.USERS}/${user.id}`, httpOptions);
   }
 }
