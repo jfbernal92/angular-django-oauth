@@ -1,3 +1,4 @@
+import { AuthGuard } from './guards/auth.guard';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -7,7 +8,7 @@ import { AppComponent } from './app.component';
 
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
-import { HomeComponent } from './components/home/home.component';
+import { ManagementComponent } from './components/management/management.component';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
@@ -17,6 +18,10 @@ import { DropdownModule } from 'primeng/dropdown';
 import { AngularIbanModule } from 'angular-iban';
 
 import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './components/home/home.component';
+
+import { CommunicationService } from './services/communication.service';
+
 
 const config = new AuthServiceConfig([
   {
@@ -28,6 +33,7 @@ const config = new AuthServiceConfig([
 @NgModule({
   declarations: [
     AppComponent,
+    ManagementComponent,
     HomeComponent,
   ],
   imports: [
@@ -44,6 +50,8 @@ const config = new AuthServiceConfig([
   ],
   providers: [
     httpInterceptorProviders,
+    CommunicationService,
+    AuthGuard,
     {
       provide: AuthServiceConfig,
       useFactory: () => config
