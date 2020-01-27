@@ -23,6 +23,7 @@
     "angular-iban": "^0.2.0",
     "angularx-social-login": "^2.2.1",
     "iban": "0.0.12",
+    "primeflex": "^1.0.0",
     "primeicons": "^2.0.0",
     "primeng": "^9.0.0-rc.2",
     "rxjs": "~6.4.0",
