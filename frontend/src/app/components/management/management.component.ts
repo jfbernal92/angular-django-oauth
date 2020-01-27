@@ -2,9 +2,11 @@ import { Routes } from './../../config/routes.config';
 import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService, SocialUser } from 'angularx-social-login';
 import { ColumnHeader } from 'src/app/interfaces/columnHeader.interface';
+import { MessageService, Message } from 'primeng/api';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-management',
@@ -28,7 +30,7 @@ export class ManagementComponent implements OnInit {
     ];
   }
 
-  constructor(private authService: AuthService, private userService: UserService, private router: Router) { }
+  constructor(private authService: AuthService, private ms: MessageService, private userService: UserService, private router: Router) { }
 
 
   signOut(): void {
@@ -42,27 +44,30 @@ export class ManagementComponent implements OnInit {
     });
   }
 
-  getUser(id: number) {
-    return this.userService.getUser(id).subscribe((user: User) => {
-
-    });
-  }
-
   createUser(user: User) {
     return this.userService.createUser(user).subscribe(() => {
       this.getUsers();
+    }, (err: HttpErrorResponse) => {
+      this.handleError(err);
     });
   }
 
-  updateUser(user: User) {
+  updateUser(user: User, index?: number) {
     return this.userService.updateUser(user).subscribe(() => {
+      delete this.clonedUserList[user.id];
       this.getUsers();
+    }, (err: HttpErrorResponse) => {
+      this.handleError(err);
+      this.onRowEditCancel(user, index);
     });
   }
 
   deleteUser(user: User) {
     return this.userService.deleteUser(user).subscribe(() => {
+      delete this.clonedUserList[user.id];
       this.getUsers();
+    }, (err: HttpErrorResponse) => {
+      this.handleError(err);
     });
   }
 
@@ -70,9 +75,8 @@ export class ManagementComponent implements OnInit {
     this.clonedUserList[user.id] = { ...user };
   }
 
-  onRowEditSave(user: User) {
-    delete this.clonedUserList[user.id];
-    this.updateUser(user);
+  onRowEditSave(user: User, index: number) {
+    this.updateUser(user, index);
   }
 
   onRowEditCancel(user: User, index: number) {
@@ -81,8 +85,16 @@ export class ManagementComponent implements OnInit {
   }
 
   onRowDelete(user: User) {
-    delete this.clonedUserList[user.id];
     this.deleteUser(user);
   }
 
+  private handleError(error: HttpErrorResponse) {
+    const errorList: Array<Message> = [];
+    Object.keys(error.error).forEach((field: string) => {
+      error.error[field].forEach(errors => {
+        errorList.push({ severity: 'error', summary: field, detail: errors, life: 5000 });
+      });
+    });
+    this.ms.addAll(errorList);
+  }
 }

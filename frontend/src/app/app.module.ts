@@ -15,12 +15,14 @@ import { ButtonModule } from 'primeng/button';
 import { httpInterceptorProviders } from './services/auth/auth-interceptor.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
 import { AngularIbanModule } from 'angular-iban';
-
+import { ToastModule } from 'primeng/toast';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommunicationService } from './services/communication.service';
+import {MessageService} from 'primeng/api';
 
 
 const config = new AuthServiceConfig([
@@ -40,17 +42,21 @@ const config = new AuthServiceConfig([
     AngularIbanModule,
     AppRoutingModule,
     BrowserModule,
+    BrowserAnimationsModule,
     ButtonModule,
     CardModule,
+    CheckboxModule,
     DropdownModule,
     FormsModule,
     HttpClientModule,
     SocialLoginModule,
-    TableModule
+    TableModule,
+    ToastModule
   ],
   providers: [
     httpInterceptorProviders,
     CommunicationService,
+    MessageService,
     AuthGuard,
     {
       provide: AuthServiceConfig,
