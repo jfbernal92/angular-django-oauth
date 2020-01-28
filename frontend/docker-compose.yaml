@@ -1,0 +1,20 @@
+version: '3.5'
+services:
+    angular-service:
+      container_name: testcase-frontend
+      build: ../frontend
+      volumes:
+        - '../frontend:/usr/src/app'
+      command: >
+        bash -c "npm run docker"
+      restart: unless-stopped
+      networks:
+        regiohelden:
+          aliases:
+            - testcase
+networks:
+  regiohelden:
+    name: rh-dev.eu
+    ipam:
+      config:
+        - subnet: 10.199.0.0/16
