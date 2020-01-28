@@ -25,6 +25,8 @@ We're using docker-etchosts to manage the hosts file entries. Check [GitHub](htt
 * Start frontend container ```docker-compose up``` 
 * Navigate to (http://testcase.rh-dev.eu:8001) and sign in with your google account to access the secure user management page
 
+Note: _Before performing any action, make sure the backend is working properly. To do this, navigate to this link, if you see the API page then everything is correct, otherwise restart the 3 containers (django, postgres and docker-common)_
+
 # Authorization
 
 The OAuth token generated on the client side must be sent with each request to the server in the Authorization header.
