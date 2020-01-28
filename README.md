@@ -20,6 +20,11 @@ We're using docker-etchosts to manage the hosts file entries. Check [GitHub](htt
 * Implement the frontend against the API
 * Extend the readme on how to build and run the frontend, the JS frontend webserver should run on port 8001 (http://testcase.rh-dev.eu:8001)
 
+# Frontend Setup 
+* Open frontend folder ```cd frontend``` 
+* Start frontend container ```docker-compose up``` 
+* Navigate to (http://testcase.rh-dev.eu:8001) and sign in with your google account to access the secure user management page
+
 # Authorization
 
 The OAuth token generated on the client side must be sent with each request to the server in the Authorization header.
